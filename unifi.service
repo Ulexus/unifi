@@ -1,0 +1,16 @@
+[Unit]
+Description=Unifi service
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker pull ulexus/unifi
+ExecStartPre=-/usr/bin/docker run --rm -v /bin:/opt/bin ibuildthecloud/systemd-docker
+ExecStart=/opt/bin/systemd-docker --env run --rm --name unifi -v /data/unifi:/var/lib/unifi -h %H  -p 8080:8080 -p 8091:8091 -p 8843:8843 -p 8880:8880 -p 8443:8443 -p 5353:5353/udp ulexus/unifi
+LimitNOFILE=64000
+Restart=always
+RestartSec=10s
+Type=notify
+NotifyAccess=all
+TimeoutStartSec=120
+TimeoutStopSec=15
