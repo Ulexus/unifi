@@ -1,5 +1,5 @@
 # Pull base image. (match this to elasticsearch)
-FROM java:7
+FROM java:8
 MAINTAINER Seán C McCord <ulexus@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
